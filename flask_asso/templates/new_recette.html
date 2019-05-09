@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<form method="POST" action="" enctype="multipart/form-data" class="col s8 offset-s1">
+			{{ form.hidden_tag() }}
+			<div class="row">
+				<h3 class="teal-text text-darken-3"><b>{{ legend }}</b></h3>
+				<div class="col s12 m10">
+					<div class="input-field inline col s12">
+						
+	        	   		{{ form.title(class="validate", id="title") }}
+	        			<label for="title">Titre</label>
+
+	        	   		{% if form.title.errors %}
+		       				{% for error in form.title.errors %}
+		       					<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+		       				{% endfor %}
+		       			{% endif %}
+
+					</div>
+					<div class="input-field col s12">
+						<div id='etape'>
+							{{ form.content(id="recipe", class="materialize-textarea validate")}}
+						</div>
+						<a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Ajouter</a>
+						<a class="waves-effect waves-light btn"><i class="material-icons left">remove</i>Supprimer</a>
+		       			{% if form.content.errors %}
+		       				{% for error in form.content.errors %}
+		       					<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+		       				{% endfor %}
+		       			{% endif %}
+
+					</div>
+					<div class="input-field col s12 m6">
+		       			<div class="file-field input-field">
+					    	<div class="btn">
+					    		<span>File</span>
+					    		{{ form.recipe }}
+					    	</div>
+					    	<div class="file-path-wrapper">
+					    		<input class="file-path validate" type="text" placeholder="Ajouter une image pour la recette... JPG, PNG">
+					    	</div>
+					    </div>
+					    {% if form.recipe.errors %}
+		       				{% for error in form.recipe.errors %}
+		       					<span class="helper-text red-text text-darken-1">{{ error }}</span><br>
+		       				{% endfor %}
+		       			{% endif %}
+		       		</div>
+			    	<div class="col s12">
+						<button class="btn waves-effect waves-light" type="submit" name="action">Publier cette recette
+							<i class="material-icons right">send</i>
+						</button>
+					</div>
+				</div>
+	  		</div>
+		</form>
+	</div>
+
+{% endblock content %}
+{% block scripts %}
+	<script src="{{url_for('static', filename='test.js')}}"></script>
+{% endblock scripts %}

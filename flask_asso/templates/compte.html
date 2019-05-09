@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="container">
+		<br>
+		<div class=" card-panel grey lighten-5 z-depth-1">
+			<div class="row valign-wrapper">
+				<div class="col s2">
+					<img src="{{ image_file }}" alt="image" class="circle responsive-img">
+				</div>
+				<div class="col s10">
+					<span class="black-text"><h3>{{ current_user.username }}</h3></span>
+					<span class="black-text">{{ current_user.email }}</span>
+				</div>
+			</div>
+		</div>
+		<div class="col s12">
+			<div class="row">
+			    <form method="POST" action="" enctype="multipart/form-data">
+			    	{{ form.hidden_tag() }}
+			     	
+		    		<h4 class="teal-text text-darken-3"><b>Modifier ses informations</b></h4>
+			    	
+		        	<div class="input-field col s12 m10">
+
+		        		{{ form.pseudo(id="pseudo", class="validate") }}
+			       		{{ form.pseudo.label(for="pseudo") }} 
+
+			       		{% if form.pseudo.errors %}
+			       			{% for error in form.pseudo.errors %}
+			       				<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+			       			{% endfor %}
+			       		{% endif %}
+			    	</div>
+
+		        	<div class="input-field col s12 m10">
+		        	   	{{ form.email(class="validate", id="email") }}
+		        		{{ form.email.label(for="email") }}
+
+		        	   	{% if form.email.errors %}
+			       			{% for error in form.email.errors %}
+			       				<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+			       			{% endfor %}
+			       		{% endif %}
+		       		</div>
+
+		       		<div class="input-field col s12 m7">
+		       			<div class="file-field input-field">
+					    	<div class="btn">
+					    		<span>File</span>
+					    		{{ form.picture }}
+					    	</div>
+					    	<div class="file-path-wrapper">
+					    		<input class="file-path validate" type="text" placeholder="Changer d'image de profile... JPG, PNG">
+					    	</div>
+					    </div>
+					    {% if form.picture.errors %}
+		       				{% for error in form.picture.errors %}
+		       					<span class="helper-text red-text text-darken-1">{{ error }}</span><br>
+		       				{% endfor %}
+		       			{% endif %}
+		       		</div>
+
+			    	<div class="col s12 m6">
+			    		<button class="btn waves-effect waves-light" name="update">Mettre à jour
+							<i class="material-icons right">send</i>
+						</button>
+					</div>
+				</form>
+				<div class="col s12 m6">
+					<form action="{{ url_for('delete_account') }}" method="post">
+						{{ form.hidden_tag() }}
+						<button class="btn waves-effect waves-light" type="submit" name="action">Supprimer le compte
+							<i class="material-icons right">send</i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

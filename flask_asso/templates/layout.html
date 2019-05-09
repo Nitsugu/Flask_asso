@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Association Amical Fulbert</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{url_for('static', filename='materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{url_for('static', filename='style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<body>
+  <nav class="green" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('home') }}" class="brand-logo">Amicale</a>
+      <ul class="right hide-on-med-and-down">
+        
+        <li><a href="#">Qui somme nous</a></li>
+
+        {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('recettes') }}">Recettes</a></li>
+          <li><a href="{{ url_for('nouvelle_recette') }}">Nouvelle recette</a></li>
+          <li><a href="{{ url_for('compte') }}" class="wave-effect red darken-1 btn">Votre compte</a></li>
+          <li><a href="{{ url_for('deconnexion') }}">Se déconnecter</a></li>
+        {% else %}
+          <li><a href="{{ url_for('recettes') }}">Recettes</a></li>
+          <li><a href="{{ url_for('connexion') }}" class="wave-effect red darken-1 btn">Votre compte</a></li>
+        {% endif %}
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="{{ url_for('recettes') }}">Recette</a></li>
+        <li><a href="#">Qui somme nous</a></li>
+
+        {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('nouvelle_recette') }}">Nouvelle recette</a></li>
+          <li><a href="{{ url_for('compte') }}">Votre compte</a></li>
+          <li><a href="{{ url_for('deconnexion') }}">Se déconnecter</a></li>
+        {% else %}
+          <li><a href="{{ url_for('connexion') }}">Votre compte</a></li>
+        {% endif%}
+
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+    {% with messages= get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="row" id='notif'>
+          <div class="col s12 m4 l3">
+            <div class="card {{ category }}">
+              <div class="card-image">
+                <a class="btn-floating btn-small halfway-fab waves-effect waves-light red" id="button-notif"><i class="material-icons">close</i></a>
+              </div>
+              <div class="card-content white-text">
+                <span class="card-title center-align">Notification</span>
+                <p class="center-align">{{ message }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <div id="block_content">
+    {% block content %}<!-- la page se trouve ici-->{% endblock %}
+    </div>
+  <footer class="page-footer green">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Amicale lycée Fulbert</h5>
+          <p class="grey-text text-lighten-4">L'amicale Lycée Fulbert est un groupe de professeur participant à un ensemble d'activié extra-scolaire</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 5</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{{url_for('static', filename='materialize.js')}}"></script>
+  <script src="{{url_for('static', filename='init.js')}}"></script>
+  <script src="{{url_for('static', filename='close_notif.js')}}"></script>
+  {% block scripts %}
+  <!-- Script pour etapes recettes -->
+  {% endblock scripts %}
+  </body>
+</html>

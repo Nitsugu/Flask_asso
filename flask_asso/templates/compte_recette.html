@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class=row>
+		<h3>Recettes de {{ user.username }} ({{ posts.total }})</h3>
+		{% for post in posts.items %}
+			<div class="col s12 m4 l3">	
+				<div class="card green lighten-3">
+					<div class="card-image">
+						<img src="{{ image_file + post.image_recipe }}">
+						<span class="card-title">{{ post.title }}</span>
+					</div>
+					<div class="card-content">
+						<div>
+							<p class="col s6"><a href="{{ url_for('compte_recette', username=post.author.username) }}">{{ post.author.username }}</a></p>
+							<p class="col s6">{{post.date_posted.strftime('%d-%m-%Y')}}</p>
+							<br>
+						</div>
+					</div>
+					<div class="card-action">
+						<a href="{{ url_for('recette', post_id=post.id ) }}" class="black-text">Vers la recette...</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		<div>
+			<ul class="pagination center-align col s12">
+				{% for num_page in posts.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+					{% if num_page %}
+						{% if posts.page == num_page %}
+							<li class="active"><a href="{{ url_for('compte_recette', username=user.username, page=num_page) }}">{{ num_page }}</a></li>
+						{% else %}
+							<li class="waves-effect"><a href="{{ url_for('compte_recette', username=user.username, page=num_page) }}">{{ num_page }}</a></li>
+						{% endif %}
+					{% else %}
+						...
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock content %}

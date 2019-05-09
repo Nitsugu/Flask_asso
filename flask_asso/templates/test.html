@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col s12">
+			<form  method="POST" id="form" class="col s12 m8">
+				{{ form.hidden_tag() }}
+				<div class="input-field">
+					{{ form.content.label(for="content")}}
+					{{ form.content(id="content" ,class="validate")}}
+
+					{{ form.etape(id="comment", class="materialize-textarea validate")}}
+
+			       	{% if form.etape.errors %}
+							{% for error in form.etape.errors %}
+								<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+							{% endfor %}
+						{% endif %}
+				</div>
+				<a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Ajouter</a>
+				<a class="waves-effect waves-light btn"><i class="material-icons left">remove</i>Supprimer</a>
+				<div style="padding-top: 5px">
+					<button class="btn waves-effect waves-light" type="submit" name="action">Publier ce commentaire
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

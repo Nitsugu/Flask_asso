@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+	<br />
+	<div class="row">
+		<form method="POST" action="" class="col s8 offset-s1">
+			{{ form.hidden_tag() }}
+			<div class="row">
+				<h3 class="teal-text text-darken-3"><b>Connexion</b></h3>
+				<div class="col s12 m10">
+					<div class="input-field inline col s12 m11">
+						{{ form.email(class="validate", id="email") }}
+	        			{{ form.email.label(for="email") }}
+
+	        	   		{% if form.email.errors %}
+		       				{% for error in form.email.errors %}
+		       					<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+		       				{% endfor %}
+		       			{% endif %}
+					</div>
+					<div class="input-field col s12 m11">
+						{{ form.password(class="validate", id="password") }}
+		       			{{ form.password.label(for="password") }}
+
+		       			{% if form.password.errors %}
+		       				{% for error in form.password.errors %}
+		       					<span class="helper-text" data-error="wrong" data-success="right">{{ error }}</span>
+		       				{% endfor %}
+		       			{% endif %}
+					</div>
+			    	<div class="col s12">
+						<button class="btn waves-effect waves-light" type="submit" name="action">Se connecter
+							<i class="material-icons right">send</i>
+						</button>
+					</div>
+		  			<div class="col s12 m4">
+						<label>
+							{{ form.remember() }}
+							<span>{{ form.remember.label }}</span>
+						</label>
+					</div>
+					<div class="col s12 m8">
+	      				<a href="#">Mot de passe oublié</a>
+	    				<br />
+						<a href="{{ url_for('inscription') }}">Se crée un compte</a>
+	   				</div>
+				</div>
+	  		</div>
+		</form>
+	</div>
+{% endblock content %}
