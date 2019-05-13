@@ -100,7 +100,7 @@ def save_recipe(form_picture):
 
 	output_size = (400, 400)
 	i = Image.open(form_picture)
-	i.thumbnail(output_size)
+	i = i.resize(output_size)
 	i.save(picture_path)
 
 	return picture_fn
@@ -110,9 +110,11 @@ def save_recipe(form_picture):
 def nouvelle_recette():
 	form = PostRecette()
 	if form.validate_on_submit():
+		if Post.query.filter_by(title=form.title.data).first():
+			flash('Une recette porte déjà ce nom', 'red darken-3')
+			return redirect(url_for('nouvelle_recette'))
 		if form.recipe.data:
 			picture_recipe_file = save_recipe(form.recipe.data)
-			print(form.content.data)
 			post = Post(title=form.title.data, content=form.content.data, author=current_user, image_recipe=picture_recipe_file)
 		else:
 			print(form.content.data)
@@ -145,6 +147,9 @@ def update_recipe(post_id):
 		abort(403)
 	form = PostRecette()
 	if form.validate_on_submit():
+		if len(Post.query.filter_by(title=form.title.data).all())>1:
+			flash('Une recette porte déjà ce nom', 'red darken-3')
+			return redirect(url_for('update_recipe', post_id=post.id))
 		post.title = form.title.data
 		post.content= form.content.data
 		if form.recipe.data:
@@ -204,3 +209,7 @@ def test():
 		print(str(form.etape.data))
 		return(redirect(url_for('test')))
 	return render_template('test.html', form=form)
+
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template('errors.html', error= "404", msg= "Page non trouvé"), 404
