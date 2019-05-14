@@ -202,14 +202,6 @@ def delete_account():
 	flash('Votre compte à bien été supprimé', 'green lighten-3')
 	return redirect(url_for('home'))
 
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-	form = Test()
-	if form.validate_on_submit():
-		print(str(form.etape.data))
-		return(redirect(url_for('test')))
-	return render_template('test.html', form=form)
-
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('errors.html', error= "404", msg= "Page non trouvé"), 404

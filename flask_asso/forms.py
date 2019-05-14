@@ -68,12 +68,3 @@ class PostRecette(FlaskForm):
 class Comments(FlaskForm):
 	content = StringField('Commentaire', validators=[DataRequired()])
 	submit = SubmitField('Poster le Commentaire')
-
-class Etape(FlaskForm):
-	content = StringField('Etape 1', validators=[DataRequired()])
-	chiffre = StringField('Etape 2', validators=[])
-
-class Test(FlaskForm):
-	content = StringField('Titre', validators=[DataRequired()])
-	etape = FieldList(StringField('Etape', validators=[DataRequired()]), min_entries=1, max_entries=20)
-	submit = SubmitField('Poster la recette')
