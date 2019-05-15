@@ -182,6 +182,7 @@ def  compte_recette(username):
 	image_file = url_for('static', filename='recipe_pics/')
 	return render_template('compte_recette.html',image_file=image_file, posts=posts, user=user)
 
+#Suppression de commentaire
 @app.route('/recette/<int:post_id>/delete_com/<int:comment_id>', methods=['POST'])
 def delete_com(comment_id, post_id):
 	comment = Comment.query.get_or_404(comment_id)
@@ -192,6 +193,7 @@ def delete_com(comment_id, post_id):
 	flash('Le commentaire a bien été supprimé', 'green lighten-3')
 	return redirect(url_for('recette', post_id=post_id))
 
+#Suppression de compte
 @app.route('/compte/delete', methods=['POST'])
 @login_required
 def delete_account():
@@ -202,6 +204,7 @@ def delete_account():
 	flash('Votre compte à bien été supprimé', 'green lighten-3')
 	return redirect(url_for('home'))
 
+#Genère une erreur 404 sur les pages qui n'existent pas
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('errors.html', error= "404", msg= "Page non trouvé"), 404
