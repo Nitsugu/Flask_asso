@@ -10,11 +10,13 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 ''' Ce fichier permet de faire la gestion des url'''
 
+#Page par défaut
 @app.route('/') #Definit le chemin (url) vers la page
 @app.route('/home')# On peux definir plusieur chemin vers une même route
 def home():
     return render_template('index.html')
 
+#Page de séléction des recettes
 @app.route('/recettes')
 def recettes():
 	page = request.args.get('page', 1, type=int)
@@ -22,10 +24,12 @@ def recettes():
 	image_file = url_for('static', filename='recipe_pics/')
 	return render_template('recettes.html',image_file=image_file, posts=posts)
 
+#Top and footer
 @app.route('/layout')
 def layout():
 	return render_template('layout.html')
 
+#Connexion
 @app.route('/connexion', methods=['GET', 'POST'])
 def connexion():
 	if current_user.is_authenticated:
@@ -41,6 +45,7 @@ def connexion():
 			flash('Echec de l\'authentification, veuillez verifier vos identifiants', 'red darken-3')
 	return render_template('connexion.html', title='connexion', form=form)
 
+#Inscription
 @app.route('/inscription', methods=['GET', 'POST'])
 def inscription():
 	if current_user.is_authenticated:
@@ -55,11 +60,13 @@ def inscription():
 		return redirect(url_for('connexion'))
 	return render_template('inscription.html', title='inscription', form=form)
 
+#Deconnexion
 @app.route('/deconnexion')
 def deconnexion():
 	logout_user()
 	return redirect(url_for('home'))
 
+#Redimension de photo de profile utilisateur
 def save_picture(form_picture):
 	random_hex = secrets.token_hex(8)
 	_, f_ext = os.path.splitext(form_picture.filename)
@@ -73,6 +80,7 @@ def save_picture(form_picture):
 
 	return picture_fn
 
+#Page perso de l'utilisateur
 @app.route('/compte', methods=['GET', 'POST'])
 @login_required
 def compte():
@@ -92,6 +100,7 @@ def compte():
 	image_file = url_for('static', filename='profile_pics/'+ current_user.image_file)
 	return render_template('compte.html', title='compte', image_file=image_file, form=form)
 
+#Redimension des images de recettes
 def save_recipe(form_picture):
 	random_hex = secrets.token_hex(8)
 	_, f_ext = os.path.splitext(form_picture.filename)
@@ -105,6 +114,7 @@ def save_recipe(form_picture):
 
 	return picture_fn
 
+#Création de nouvelle recette
 @app.route('/recettes/new', methods=['GET', 'POST'])
 @login_required
 def nouvelle_recette():
@@ -125,6 +135,7 @@ def nouvelle_recette():
 		return redirect(url_for('home'))
 	return render_template('new_recette.html', title='Nouvelle recette', form=form, legend='Nouvelles recette')
 
+#Page d'une recette
 @app.route('/recette/<int:post_id>', methods=['GET', 'POST'])
 def recette(post_id):
 	form = Comments()
@@ -140,6 +151,7 @@ def recette(post_id):
 	recipe_file = url_for('static', filename='recipe_pics/')
 	return render_template('recette.html', title=post.title, profile_file=profile_file, recipe_file=recipe_file, post=post, form=form, comments=comments)
 
+#Mise à jour des recettes
 @app.route('/recette/<int:post_id>/update', methods=['GET', 'POST'])
 def update_recipe(post_id):
 	post = Post.query.get_or_404(post_id)
@@ -164,6 +176,7 @@ def update_recipe(post_id):
 			form.content.append_entry(post_content)
 	return render_template('new_recette.html', form=form, legend='Mettre à jour la recette')
 
+#Suppression de recette
 @app.route('/recette/<int:post_id>/delete', methods=['POST'])
 def delete_recipe(post_id):
 	post = Post.query.get_or_404(post_id)
@@ -174,6 +187,7 @@ def delete_recipe(post_id):
 	flash('Votre recette a bien été supprimé', 'green lighten-3')
 	return redirect(url_for('recettes'))
 
+#Page utilisateur (recette)
 @app.route('/compte/<string:username>')# On peux definir plusieur chemin vers une même route
 def  compte_recette(username):
 	page = request.args.get('page', 1, type=int)

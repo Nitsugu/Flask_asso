@@ -3,7 +3,7 @@ from flask_login import current_user
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, FormField, FieldList
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flask_asso.models import User
+from flask_asso.models import User, Post
 
 """ Ce fichier permet de crée des formulaire """
 
@@ -64,6 +64,11 @@ class PostRecette(FlaskForm):
 	content = FieldList(TextAreaField('Etape', validators=[DataRequired()]), min_entries=1, max_entries=20)
 	recipe = FileField('Mettre une image de recette', validators=[FileAllowed(['jpg','png'])])
 	submit = SubmitField('Post')
+
+	def validate_title(self, title):
+		recipe = Post.query.filter_by(title=title.data).first()
+		if recipe:
+			raise ValidationError('Ce nom de recette est déjà prise, veuillez en choisir un autre')
 
 class Comments(FlaskForm):
 	content = StringField('Commentaire', validators=[DataRequired()])
