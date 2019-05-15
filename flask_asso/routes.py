@@ -4,7 +4,7 @@ import json
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flask_asso import app, db, bcrypt
-from flask_asso.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostRecette, Comments, Test
+from flask_asso.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostRecette, Comments
 from flask_asso.models import User, Post, Comment
 from flask_login import login_user, current_user, logout_user, login_required
 
