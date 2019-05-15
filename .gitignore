@@ -199,5 +199,6 @@ dmypy.json
 
 .flask_asso/site.db
 flask_asso/site.db
-
+.\flask_asso\site.db
+flask_asso\site.db
 # End of https://www.gitignore.io/api/flask,python,visualstudiocode
