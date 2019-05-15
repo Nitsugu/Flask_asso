@@ -196,6 +196,7 @@ dmypy.json
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+*.db
 
 .flask_asso/site.db
 flask_asso/site.db
