@@ -22,7 +22,18 @@
           <li><a href="{{ url_for('recettes') }}">Recettes</a></li>
           <li><a href="{{ url_for('nouvelle_recette') }}">Nouvelle recette</a></li>
           <li><a href="{{ url_for('compte') }}" class="wave-effect red darken-1 btn">Votre compte</a></li>
-          <li><a href="{{ url_for('deconnexion') }}">Se déconnecter</a></li>
+          <!-- <li><a href="{{ url_for('deconnexion') }}">Se déconnecter</a></li> -->
+          <li><a href="#modal1" class="modal-trigger">Se déconnecter</a></li>
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h4 class="black-text">Voulez vous vraiment vous déconnecter</h4>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close wave-effect waves-red btn-flat">Non</a>
+              <a href="{{ url_for('deconnexion') }}" class="wave-effect waves-green btn-flat">Oui</a>
+            </div>
+          </div>
+          
         {% else %}
           <li><a href="{{ url_for('recettes') }}">Recettes</a></li>
           <li><a href="{{ url_for('connexion') }}" class="wave-effect red darken-1 btn">Votre compte</a></li>
@@ -36,7 +47,17 @@
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('nouvelle_recette') }}">Nouvelle recette</a></li>
           <li><a href="{{ url_for('compte') }}">Votre compte</a></li>
-          <li><a href="{{ url_for('deconnexion') }}">Se déconnecter</a></li>
+          <li>
+            <!-- <a href="{{ url_for('deconnexion') }}">Se déconnecter</a> -->
+            <a href="#modal1">Se déconnecter</a>
+            <div id="modal1" class="modal">
+              <h4>Voulez vous vraiment vous déconnecter</h4>
+            </div>
+            <div>
+              <a href="#!" class="modal-close wave-effect waves-light waves-red btn-flat">Non</a>
+              <a href="{{ url_for('deconnexion') }}" class="wave-effect waves-light waves-green btn-flat">Oui</a>
+            </div>
+          </li>
         {% else %}
           <li><a href="{{ url_for('connexion') }}">Votre compte</a></li>
         {% endif%}
