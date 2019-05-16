@@ -15,3 +15,16 @@
 #block_content {
 	min-height: 700px;
 }
+
+.modal-content > * {
+	color : black;
+}
+
+.modal-content p {
+	font-size: 30px;
+}
+
+
+a.btn-flat {
+	font-size: 25px;
+}
