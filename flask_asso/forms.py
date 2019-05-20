@@ -66,9 +66,9 @@ class PostRecette(FlaskForm):
 	submit = SubmitField('Post')
 
 	def validate_title(self, title):
-		recipe = Post.query.filter_by(title=title.data).first()
-		if recipe:
-			raise ValidationError('Ce nom de recette est déjà prise, veuillez en choisir un autre')
+		recipe = Post.query.filter_by(title=title.data).all()
+		if len(recipe) > 1:
+			raise ValidationError('Ce nom de recette est déjà pris, veuillez en choisir un autre')
 
 class Comments(FlaskForm):
 	content = StringField('Commentaire', validators=[DataRequired()])

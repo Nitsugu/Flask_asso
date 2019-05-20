@@ -3,13 +3,13 @@ function add() {
 	last_child.removeEventListener('input', add);
 	nombre += 1;
 	ul.appendChild(create_li());
-	last_child = document.getElementsByTagName('li')[10+nombre];
+	last_child = document.getElementsByTagName('li')[8+nombre];
 	last_child.addEventListener('input', add);
 }
 
 function del() {
 	if (nombre <=0) { return }
-	last_child = document.getElementsByTagName('li')[10+nombre];
+	last_child = document.getElementsByTagName('li')[8+nombre];
 	last_child.remove();
 	nombre -= 1;
 }
@@ -26,7 +26,7 @@ function create_input() {
 	input.setAttribute('id', 'content-'+nombre);
 	input.setAttribute('name', 'content-'+nombre);
 	input.setAttribute('type', 'text');
-	input.setAttribute('class', 'materialize-textarea')
+	input.setAttribute('class', 'materialize-textarea validate')
 	input.setAttribute('required', '');
 	return input
 }
@@ -40,15 +40,18 @@ function create_li() {
 
 function testPage() {
 	if (window.location.pathname === "/recettes/new"){
+	console.log("new")
 	document.onload = document.getElementsByTagName('label')[1].innerText = "Etape "+(nombre+1);
 	document.onload = document.getElementsByTagName('textarea')[0].setAttribute('class', 'materialize-textarea validate');
 	}
 	else{
+		console.log('update')
 		last_child.remove();
 		btn_add.remove();
 		btn_less.remove();
 		a = document.getElementsByTagName('textarea');
 		for (var i = 0; i < a.length; i++){
+			document.getElementsByTagName('label')[1+i].innerText = "Etape "+(i+1);
 			a[i].setAttribute('class', 'materialize-textarea');
 			M.textareaAutoResize(a[i])
 
@@ -64,7 +67,7 @@ var text = document.getElementsByTagName('label')[0];
 var btn_add = document.getElementsByClassName('btn')[1];
 var btn_less = document.getElementsByClassName('btn')[2];
 
-var last_child = document.getElementsByTagName('li')[10+nombre];
+var last_child = document.getElementsByTagName('li')[8+nombre];
 
 btn_add.addEventListener('click', add); //bouton +
 btn_less.addEventListener('click', del); //bouton -
