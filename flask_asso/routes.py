@@ -61,7 +61,7 @@ def inscription():
 	return render_template('inscription.html', title='inscription', form=form)
 
 #Deconnexion
-@app.route('/deconnexion')
+@app.route('/deconnexion', methods=['GET'])
 def deconnexion():
 	logout_user()
 	return redirect(url_for('home'))
@@ -159,9 +159,6 @@ def update_recipe(post_id):
 		abort(403)
 	form = PostRecette()
 	if form.validate_on_submit():
-		if len(Post.query.filter_by(title=form.title.data).all())>1:
-			flash('Une recette porte déjà ce nom', 'red darken-3')
-			return redirect(url_for('update_recipe', post_id=post.id))
 		post.title = form.title.data
 		post.content= form.content.data
 		if form.recipe.data:

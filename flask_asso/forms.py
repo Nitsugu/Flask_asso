@@ -44,7 +44,7 @@ class UpdateAccountForm(FlaskForm):
 		validators=[DataRequired(), Length(min=2, max=20)])
 	email = StringField('Adresse mail', 
 		validators=[DataRequired(), Email()])
-	picture = FileField('Changer l\'image de profile', validators=[FileAllowed(['jpg', 'png'])])
+	picture = FileField('Changer l\'image de profile', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	submit = SubmitField('Mettre à jour')
 
 	def validate_pseudo(self, username):
@@ -62,13 +62,8 @@ class UpdateAccountForm(FlaskForm):
 class PostRecette(FlaskForm):
 	title = StringField('Title', validators=[DataRequired()])
 	content = FieldList(TextAreaField('Etape', validators=[DataRequired()]), min_entries=1, max_entries=20)
-	recipe = FileField('Mettre une image de recette', validators=[FileAllowed(['jpg','png'])])
+	recipe = FileField('Mettre une image de recette', validators=[FileAllowed(['jpg','png', 'jpeg'])])
 	submit = SubmitField('Post')
-
-	def validate_title(self, title):
-		recipe = Post.query.filter_by(title=title.data).all()
-		if len(recipe) > 1:
-			raise ValidationError('Ce nom de recette est déjà pris, veuillez en choisir un autre')
 
 class Comments(FlaskForm):
 	content = StringField('Commentaire', validators=[DataRequired()])

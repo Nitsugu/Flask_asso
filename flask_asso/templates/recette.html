@@ -67,6 +67,7 @@
 							{% if comment.author == current_user %}
 								<div class="right-align">
 									<form action="{{ url_for('delete_com', comment_id=comment.id, post_id=post.id) }}" method="POST">
+										{{ form.hidden_tag() }}
 										<button class="waves-effect waves-light btn" type="submit" name="action">
 											<i class="material-icons">close</i>
 										</button>
