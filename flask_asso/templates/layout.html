@@ -16,8 +16,6 @@
     <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('home') }}" class="brand-logo">Amicale</a>
       <ul class="right hide-on-med-and-down">
         
-        <li><a href="#">Qui somme nous</a></li>
-
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('recettes') }}">Recettes</a></li>
           <li><a href="{{ url_for('nouvelle_recette') }}">Nouvelle recette</a></li>
@@ -41,9 +39,9 @@
         {% endif %}
       </ul>
 
+      <!-- Navigateur moçbile -->
       <ul id="nav-mobile" class="sidenav">
         <li><a href="{{ url_for('recettes') }}">Recette</a></li>
-        <li><a href="#">Qui somme nous</a></li>
 
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('nouvelle_recette') }}">Nouvelle recette</a></li>
@@ -89,21 +87,11 @@
 
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
+          <h5 class="white-text">Pages</h5>
           <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 5</a></li>
+            <li><a class="white-text" href="{{ url_for('home') }}">Accueil</a></li>
+            <li><a class="white-text" href="{{ url_for('recettes') }}">Recettes</a></li>
+            <li><a class="white-text" href="{{ url_for('connexion') }}">Compte</a></li>
           </ul>
         </div>
       </div>
@@ -122,6 +110,7 @@
   <script src="{{url_for('static', filename='init.js')}}"></script>
   <script src="{{url_for('static', filename='close_notif.js')}}"></script>
   {% block scripts %}
+
   <!-- Script pour etapes recettes -->
   {% endblock scripts %}
   </body>

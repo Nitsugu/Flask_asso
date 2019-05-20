@@ -33,7 +33,7 @@ def layout():
 @app.route('/connexion', methods=['GET', 'POST'])
 def connexion():
 	if current_user.is_authenticated:
-		return(redirect(url_for('home')))
+		return(redirect(url_for('compte')))
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
