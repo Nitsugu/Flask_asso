@@ -61,7 +61,7 @@ class UpdateAccountForm(FlaskForm):
 
 class PostRecette(FlaskForm):
 	title = StringField('Title', validators=[DataRequired()])
-	content = FieldList(TextAreaField('Etape', validators=[DataRequired()]), min_entries=1, max_entries=20)
+	content = FieldList(TextAreaField('Etape', validators=[DataRequired()]), min_entries=1, max_entries=21)
 	recipe = FileField('Mettre une image de recette', validators=[FileAllowed(['jpg','png', 'jpeg'])])
 	submit = SubmitField('Post')
 
